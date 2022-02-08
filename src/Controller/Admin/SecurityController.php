@@ -7,10 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * @Route("/admin")
+ */
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("admin/login", name="admin_security_login")
+     * @Route("/login", name="admin_security_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -29,8 +32,8 @@ class SecurityController extends AbstractController
     /**
      * @Route("admin/logout", name="admin_security_logout")
      */
-    public function logout(): void
+    public function logout()
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        return $this->redirectToRoute('admin_security_logout');
     }
 }

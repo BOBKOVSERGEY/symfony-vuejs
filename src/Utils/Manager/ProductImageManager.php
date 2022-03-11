@@ -2,6 +2,7 @@
 
 namespace App\Utils\Manager;
 
+use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Utils\File\ImageResizer;
 use App\Utils\Filesystem\FilesystemWorker;
@@ -67,5 +68,28 @@ class ProductImageManager
         $productImage->setFilenameBig($imageBig);
 
         return $productImage;
+    }
+
+    /**
+     * @param ProductImage $productImage
+     * @param string $productDir
+     * @return void
+     */
+    public function removeImageFromProduct(ProductImage $productImage, string $productDir)
+    {
+        $smallFilePath = $productDir . '/' . $productImage->getFilenameSmall();
+        $this->filesystemWorker->remove($smallFilePath);
+
+        $middleFilePath = $productDir . '/' . $productImage->getFilenameMiddle();
+        $this->filesystemWorker->remove($middleFilePath);
+
+        $bigFilePath = $productDir . '/' . $productImage->getFilenameBig();
+        $this->filesystemWorker->remove($bigFilePath);
+
+        $product = $productImage->getProduct();
+
+        $product->removeProductImage($productImage);
+
+        $this->entityManager->flush();
     }
 }

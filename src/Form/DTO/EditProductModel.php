@@ -44,6 +44,12 @@ class EditProductModel
 
     public string $description;
 
+    /**
+     * @Assert\NotBlank (message="Please select a category")
+     * @var string
+     */
+    public $category;
+
     public bool $isPublished;
 
     public bool $isDeleted;

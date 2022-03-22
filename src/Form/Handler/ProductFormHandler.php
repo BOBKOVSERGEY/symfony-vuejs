@@ -27,7 +27,7 @@ class ProductFormHandler
      * @param Form $form
      * @return Product|null
      */
-    public function processEditForm(EditProductModel $editProductModel, Form $form)
+    public function processEditForm(EditProductModel $editProductModel, Form $form): ?Product
     {
         $product = new Product();
 
@@ -39,6 +39,7 @@ class ProductFormHandler
         $product->setPrice($editProductModel->price);
         $product->setQuantity($editProductModel->quantity);
         $product->setDescription($editProductModel->description);
+        $product->setCategory($editProductModel->category);
         $product->setIsPublished($editProductModel->isPublished);
         $product->setIsDeleted($editProductModel->isDeleted);
 
